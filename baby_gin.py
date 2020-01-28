@@ -43,15 +43,24 @@ def Counting_sort(a): #내가 푼거
         temp[(counts[arr[j]])-1] = arr[j]
         counts[arr[j]] -=1
     return temp
-print(Counting_sort(arr))
+#print(Counting_sort(arr))
 
-# def counting_sort(A,k): #A : 정렬할 배열 k : 배열의 최대값
-#     c = [0 * k]
-#     for i in range(0, len(A)):
-#         c[A[i]] += 1
-#
-#     for j in range(len(c)-1):
-#         c[j+1] += c[j]
+def counting_sort(A,B,k): #A : 정렬할 배열 k : 배열의 최대값
+    c = [0]*k
+    for i in range(0, len(A)):
+        c[A[i]] += 1
+
+    # 카운트 배열 조작하기 : 숫자들이 들어갈 자리를 표현하도록 내 앞 인덱스 숫자를 더해서 대입
+    for i in range(1,len(c)):
+        c[i] += c[i-1]
+
+    # 정렬하기
+    for i in range(len(A)-1,0,-1):
+        c[A[i]] -= 1
+        B[c[A[i]]] = A[i]
+
+    return B
+print(counting_sort(arr,[0]*len(arr),5))
 
 
 
